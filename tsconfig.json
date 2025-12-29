@@ -4,34 +4,25 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/api"
+      "path": "./apps/tvSpellenWebApp-e2e"
     },
     {
-      "path": "./apps/shop-e2e"
+      "path": "./apps/tvSpellenWebApp"
     },
     {
-      "path": "./apps/shop"
+      "path": "./apps/recom-api-e2e"
     },
     {
-      "path": "./libs/api/products"
+      "path": "./apps/recom-api"
     },
     {
-      "path": "./libs/shared/models"
+      "path": "./apps/speldata-api-e2e"
     },
     {
-      "path": "./libs/shop/data"
+      "path": "./apps/speldata-api"
     },
     {
-      "path": "./libs/shop/feature-product-detail"
-    },
-    {
-      "path": "./libs/shop/feature-products"
-    },
-    {
-      "path": "./libs/shop/shared-ui"
-    },
-    {
-      "path": "./libs/shared/test-utils"
+      "path": "./libs/shared/data-api"
     }
   ]
 }
