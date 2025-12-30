@@ -17,7 +17,7 @@ export class ApiResponseInterceptor implements NestInterceptor {
     ): Observable<IApiResponse<unknown>> {
         return next.handle().pipe(
             map((results) => {
-                if (results) { 
+                if (results) {
                     return {
                         results,
                         info: {

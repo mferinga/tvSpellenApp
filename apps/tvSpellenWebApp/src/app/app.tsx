@@ -1,11 +1,24 @@
 
-import { Route, Routes, Link } from 'react-router-dom';
+// import { Route, Routes, Link } from 'react-router-dom';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { SpelList } from '@org/frontfeatures';
+import React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from 'react-router-dom';
 
 export function App() {
-  return(
-    <div>
-      <h1>TV Spellen Web App</h1>
-    </div>      
+  return (
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route index element={<div id="test" />} />
+          <Route path="/test" element={<SpelList />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
