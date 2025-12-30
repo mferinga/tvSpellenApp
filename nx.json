@@ -32,7 +32,11 @@
           "watchDepsName": "watch-deps"
         }
       },
-      "exclude": ["libs/shared/data-api/*"]
+      "exclude": [
+        "libs/shared/data-api/*",
+        "libs/backend/features/*",
+        "libs/backend/dto/*"
+      ]
     },
     {
       "plugin": "@nx/react/router-plugin",
@@ -106,7 +110,11 @@
     },
     {
       "plugin": "@nx/js/typescript",
-      "include": ["libs/shared/data-api/*"],
+      "include": [
+        "libs/shared/data-api/*",
+        "libs/backend/features/*",
+        "libs/backend/dto/*"
+      ],
       "options": {
         "typecheck": {
           "targetName": "typecheck"

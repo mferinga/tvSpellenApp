@@ -23,6 +23,21 @@
     },
     {
       "path": "./libs/shared/data-api"
+    },
+    {
+      "path": "./libs/backend/features"
+    },
+    {
+      "path": "./libs/backend/dto"
+    },
+    {
+      "path": "./libs/frontend/ui"
+    },
+    {
+      "path": "./libs/frontend/common"
+    },
+    {
+      "path": "./libs/frontend/frontfeatures"
     }
   ]
 }
