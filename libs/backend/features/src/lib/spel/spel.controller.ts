@@ -1,24 +1,26 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { SpelService } from '../spel.service';
+import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe } from '@nestjs/common';
+import { SpelService } from './spel.service';
 import type { ISpel } from '@org/data-api';
 import { CreateSpelDTO } from '@org/dto';
 
 @Controller('spel')
 export class SpelController {
-  constructor(private readonly spelService: SpelService) {}
+  constructor(private spelService: SpelService) {}
 
   @Get('')
-  getAll(): ISpel[] {
-    return this.spelService.getAll();
+  getAll() {
+    return this.spelService.getAllSpellen();
   }
 
-  @Get(':id')
-  getById(@Param('id') id: number): ISpel {
-    return this.spelService.getById(id);
-  }
+  // @Get(':id')
+  // getById(@Param('id') id: number): ISpel {
+  //   return this.spelService.getById(id);
+  // }
 
-  @Post('')
-  create(@Body() spelData: CreateSpelDTO): ISpel {
-    return this.spelService.create(spelData);
+  @Post()
+  @UsePipes(new ValidationPipe())
+  createSpel(@Body() createSpelDto: CreateSpelDTO) {
+    console.log(createSpelDto);
+    return this.spelService.createSpel(createSpelDto);
   }
 }

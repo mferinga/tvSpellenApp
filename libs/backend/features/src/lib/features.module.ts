@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SpelController } from './spel/spel.controller';
-import { SpelService } from './spel.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { SpelModule } from './spel/spel.module';
 
 @Module({
-  controllers: [SpelController],
-  providers: [SpelService],
-  exports: [SpelService],
+  controllers: [],
+  providers: [],
+  exports: [],
+  imports: [MongooseModule.forRoot('mongodb://127.0.0.1/TvSpellenApp'), SpelModule],
 })
 export class OrgFeaturesSpelModule {}
