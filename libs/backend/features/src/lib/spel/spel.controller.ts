@@ -1,21 +1,25 @@
-import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, HttpException } from '@nestjs/common';
 import { SpelService } from './spel.service';
-import type { ISpel } from '@org/data-api';
 import { CreateSpelDTO } from '@org/dto';
 
 @Controller('spel')
 export class SpelController {
   constructor(private spelService: SpelService) {}
 
-  @Get('')
+  @Get()
   getAll() {
     return this.spelService.getAllSpellen();
   }
 
-  // @Get(':id')
-  // getById(@Param('id') id: number): ISpel {
-  //   return this.spelService.getById(id);
-  // }
+  @Get(':id')
+  async getSpelById(@Param('id') id: string) {
+    const findSpel = await this.spelService.getSpelById(id);
+    if(!findSpel)
+    {
+      throw new HttpException("Spel is niet gevonden", 404);
+    }
+    return findSpel;
+  }
 
   @Post()
   @UsePipes(new ValidationPipe())

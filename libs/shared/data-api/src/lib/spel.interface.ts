@@ -1,5 +1,4 @@
 export interface ISpel {
-  id: number;
   naam: string;
   beschrijving: string;
   uitleg: string;

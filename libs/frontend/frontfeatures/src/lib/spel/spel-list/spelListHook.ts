@@ -8,7 +8,7 @@ export function useGetAllSpellen() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    SpelService.getAll()
+    SpelService.getAllSpellen()
       .then((res) => {
         setAllSpellen(Array.isArray(res.results) ? res.results : [res.results]);
       })

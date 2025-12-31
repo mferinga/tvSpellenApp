@@ -2,9 +2,6 @@ import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 
 @Schema()
 export class Spel {
-    @Prop({unique: true})
-    id! : number;
-
     @Prop({required : true})
     naam! : string;
 

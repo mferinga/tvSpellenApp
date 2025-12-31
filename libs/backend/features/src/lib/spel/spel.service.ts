@@ -16,15 +16,10 @@ export class SpelService {
     Logger.log('Ophalen van alle spellen');
     return this.spelModel.find();
   }
-
-  // getById(id: number) {
-  //   Logger.log(`Ophalen van spel met id: ${id}`);
-  //   const spel = this.spellen$.value.find((s) => s.id === id);
-  //   if (!spel) {
-  //     throw new NotFoundException(`Spel met id ${id} niet gevonden`);
-  //   }
-  //   return spel;
-  // }
+  
+  getSpelById(id: string) {
+    return this.spelModel.findById(id);
+  }
 
   createSpel(createSpelDTO: CreateSpelDTO) {
     Logger.log(`Aanmaken van nieuw spel: ${createSpelDTO.naam}`);
