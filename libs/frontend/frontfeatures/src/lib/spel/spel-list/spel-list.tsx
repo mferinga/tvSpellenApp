@@ -9,7 +9,7 @@ export function SpelList() {
     return (
         <ul>
             {spellen.map((spel) => (
-                <li key={spel.id}>{spel.naam}</li>
+                <li key={spel.naam}>{spel.naam}</li>
             ))}
         </ul>
     );

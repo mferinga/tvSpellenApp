@@ -1,0 +1,14 @@
+{
+    "name": "@org/speldata-api",
+    "projectType": "application",
+    "sourceRoot": "apps/speldata-api/src",
+    "targets": {
+        "serve": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "ts-node-dev --respawn --poll --transpile-only --project tsconfig.app.json src/main.ts",
+                "cwd": "apps/speldata-api"
+            }
+        }
+    }
+}
