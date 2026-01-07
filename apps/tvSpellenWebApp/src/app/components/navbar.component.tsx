@@ -4,7 +4,7 @@ interface NavBarProps {
     title?: string;
 }
 
-export const NavBarComponent: React.FC<NavBarProps> = ({ title = 'My App' }) => {
+export const NavBarComponent: React.FC<NavBarProps> = ({ title = 'TV Spellen Avond' }) => {
     return (
         <nav style={{ backgroundColor: '#333', padding: '1rem' }}>
             <div style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 'bold' }}>
