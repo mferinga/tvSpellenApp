@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { Home, SpelList } from '@org/frontfeatures';
+import { AppRoutes } from '@org/frontfeatures';
 import {
   BrowserRouter,
   Routes,
@@ -9,12 +9,8 @@ import {
 export function App() {
   return (
     <BrowserRouter>
-      <div className='container mt-3'>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/spellen" element={<SpelList />} />
-          {/* <Route path="spellen/{:id}" element={<SpelDetail} /> */}
-        </Routes>
+      <div className="container mt-3">
+        <AppRoutes />
       </div>
     </BrowserRouter>
   );

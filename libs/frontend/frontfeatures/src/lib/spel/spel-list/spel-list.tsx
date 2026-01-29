@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { useGetAllSpellen } from './spelListHook';
 import styles from './spel-list.module.css';
+import { SpelDetail } from '../spel-detail/spel-detail';
 
 export function SpelList() {
   const { spellen, loading, error } = useGetAllSpellen();
@@ -10,6 +12,11 @@ export function SpelList() {
   return (
     <div className={styles['spelGrid']}>
       {spellen.map((spel) => (
+        <Link
+          key={spel._id}
+          to={`/spellen/${spel._id}`}
+          className={styles.spelCard}
+        >
         <div className={styles['spelCard']}>
           <div className="card h-75 border-2 shadow-sm">
             <div className="card-body d-flex flex-column">
@@ -20,6 +27,7 @@ export function SpelList() {
             </div>
           </div>
         </div>
+        </Link>
       ))}
     </div>
   );

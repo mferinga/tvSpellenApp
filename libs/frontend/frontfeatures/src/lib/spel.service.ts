@@ -16,7 +16,7 @@ export class SpelService {
     return data;
   }
 
-  static async getBySpellenId(id: number): Promise<IApiResponse<ISpel>> {
+  static async getBySpellenId(id: string): Promise<IApiResponse<ISpel>> {
     const response = await fetch(`${API_BASE_URL}/spel/${id}`);
 
     if (!response.ok) {
