@@ -2,17 +2,17 @@
 import { AppRoutes } from '@org/frontfeatures';
 import {
   BrowserRouter,
-  Routes,
-  Route,
 } from 'react-router-dom';
+import { NavBarComponent } from './components/navbar.component';
 
 export function App() {
   return (
-    <BrowserRouter>
+    <>
+      <NavBarComponent />
       <div className="container mt-3">
         <AppRoutes />
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 

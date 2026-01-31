@@ -1,6 +1,9 @@
 import { Route } from 'react-router-dom';
-import { Home } from '@org/frontfeatures';
+import { About, Home } from '@org/frontfeatures';
 
 export const homeRoutes = (
-  <Route index element={<Home />} />
+  <>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+  </>
 );

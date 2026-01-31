@@ -13,7 +13,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <NavBarComponent />
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+
   </StrictMode>
 );

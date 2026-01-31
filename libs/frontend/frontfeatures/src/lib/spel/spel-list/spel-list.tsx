@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useGetAllSpellen } from './spelListHook';
 import styles from './spel-list.module.css';
-import { SpelDetail } from '../spel-detail/spel-detail';
 
 export function SpelList() {
   const { spellen, loading, error } = useGetAllSpellen();
