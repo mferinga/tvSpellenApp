@@ -4,20 +4,26 @@
  */
 
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ApiResponseInterceptor } from '@org/dto';
+
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  const corsOptions : CorsOptions = {};
-  app.enableCors(corsOptions);
+  app.enableCors({
+    origin: 'http://localhost:4200',
+    credentials: true,
+  });
 
   app.useGlobalInterceptors(new ApiResponseInterceptor());
+
+  app.use(cookieParser());
 
   const port = process.env.PORT || 3333;
   await app.listen(port);

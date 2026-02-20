@@ -1,3 +1,5 @@
+export * from './lib/auth/register/register';
+export * from './lib/auth/login/login';
 export * from './lib/about/about';
 export * from './lib/home/home';
 export * from './lib/frontfeatures';

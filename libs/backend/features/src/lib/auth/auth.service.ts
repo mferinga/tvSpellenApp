@@ -44,9 +44,9 @@ export class AuthService {
 
   private signToken(user: any) {
     const payload = {
-      sub: user._id,
+      sub: user._id.toString(),
       email: user.email,
-      rol: user.rol,
+      role: user.rol,
     };
 
     return {

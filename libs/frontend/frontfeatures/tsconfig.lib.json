@@ -42,6 +42,9 @@
   "references": [
     {
       "path": "../../shared/data-api/tsconfig.lib.json"
+    },
+    {
+      "path": "../../backend/features/tsconfig.lib.json"
     }
   ]
 }

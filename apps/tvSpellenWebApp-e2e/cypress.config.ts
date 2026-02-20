@@ -11,8 +11,8 @@ export default defineConfig({
         production: 'npx nx run @org/tvSpellenWebApp:preview',
       },
       ciWebServerCommand: 'npx nx run @org/tvSpellenWebApp:preview',
-      ciBaseUrl: 'http://localhost:4200',
+      ciBaseUrl: 'http://localhost:4200', // http://localhost:4200 http://0.0.0.0:4200
     }),
-    baseUrl: 'http://localhost:4200',
+    baseUrl: 'http://localhost:4200', // http://localhost:4200 http://0.0.0.0:4200
   },
 });

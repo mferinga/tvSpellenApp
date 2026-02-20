@@ -19,7 +19,6 @@ import { CreateUserDto } from '@org/dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // CREATE user (admin creates accounts)
   @Post()
   async create(@Body() dto: CreateUserDto) {
 
@@ -32,19 +31,16 @@ export class UserController {
     });
   }
 
-  // READ all users
   @Get()
   async findAll() {
     return this.userService.findAll();
   }
 
-  // READ one user
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.userService.findById(id);
   }
 
-  // DELETE user
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.userService.delete(id);
