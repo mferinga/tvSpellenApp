@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { authService } from '../auth.service';
+import { hasRestults } from '../../typeguard/ResponseGuard';
 
 export function Login() {
   const [formData, setFormData] = useState({
@@ -15,12 +16,14 @@ export function Login() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("hoi!");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Login Data:', formData);
-    // Add API call here
-    authService.login(formData);
+    let response = await(authService.login(formData));
+    // console.log(response);
+    if(hasRestults(response)){
+      console.log(response.results);
+    }
+    
   };
 
   return (

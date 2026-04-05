@@ -4,19 +4,10 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/tvSpellenWebApp-e2e"
-    },
-    {
       "path": "./apps/tvSpellenWebApp"
     },
     {
-      "path": "./apps/recom-api-e2e"
-    },
-    {
       "path": "./apps/recom-api"
-    },
-    {
-      "path": "./apps/speldata-api-e2e"
     },
     {
       "path": "./apps/speldata-api"
