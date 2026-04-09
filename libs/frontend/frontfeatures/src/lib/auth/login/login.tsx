@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { authService } from '../auth.service';
 import { hasRestults } from '../../typeguard/ResponseGuard';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 export function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     wachtwoord: '',
@@ -18,10 +20,10 @@ export function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response = await(authService.login(formData));
-    // console.log(response);
+    let response = await authService.login(formData);
     if(hasRestults(response)){
-      console.log(response.results);
+      console.log("Ik ben hier");
+      navigate('/spellen');
     }
     
   };
