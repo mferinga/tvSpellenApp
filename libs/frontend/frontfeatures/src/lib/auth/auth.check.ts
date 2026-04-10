@@ -1,20 +1,32 @@
+import { createContext, useContext } from 'react';
 import { User } from '@org/features';
-import React from 'react'
-import { createContext } from "react";
 
 type UserContextType = {
   user: User | null;
   token: string | null;
-  registerUser: (email: string, username: string, password: string) => void;
-  loginUser: (username: string, password: string) => void;
-  logout: () => void;
+  loading: boolean;
+  registerUser: (email: string, username: string, password: string) => Promise<void>;
+  loginUser: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
   isLoggedIn: () => boolean;
 };
 
-const UserContext = createContext<UserContextType>({} as UserContextType);
+export const UserContext = createContext<UserContextType>(
+  {} as UserContextType
+);
 
-export const authCheck = () => {
-    return {
-        isLoggedIn: () => true
-    };
-}//React.useContext(UserContext);
+export const useAuth = () => useContext(UserContext);
+
+export const useAuthCheck = () => {
+  const { token, loading } = useAuth();
+
+  return {
+    isLoggedIn: !!token,
+    loading,
+  };
+};
+
+export const useLoggedInUser = () => {
+  const { user } = useAuth();
+  return user;
+};

@@ -9,12 +9,14 @@ export const NavBarComponent: React.FC<NavBarProps> = ({
   title = 'TV Spellen Avond',
 }) => {
   return (
-    <nav style={{ backgroundColor: '#333', padding: '1rem' }}>
+
+    <nav className='d-flex flex-row justify-content-between w-100' style={{ backgroundColor: '#333', padding: '1rem' }}>
       <div style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 'bold' }}>
         {title}
       </div>
 
-      <ul
+      <div className="d-flex flex-row ms-2 mt-2">
+        <ul 
         style={{
           listStyle: 'none',
           display: 'flex',
@@ -22,26 +24,41 @@ export const NavBarComponent: React.FC<NavBarProps> = ({
           margin: 0,
           padding: 0,
         }}
-      >
-        {/*<li><a href="/" style={{ color: '#fff', textDecoration: 'none' }}>Home</a></li>
-        <li><a href="/about" style={{ color: '#fff', textDecoration: 'none' }}>About</a></li>
-        <li><a href="/contact" style={{ color: '#fff', textDecoration: 'none' }}>Contact</a></li>*/}
-        <li>
-          <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to="/spellen" style={{ color: '#fff', textDecoration: 'none' }}>
-            Spellen
-          </Link>
-        </li>
-        <li>
-          <Link to="/about" style={{ color: '#fff', textDecoration: 'none' }}>
-            About
-          </Link>
-        </li>
-      </ul>
+        >
+          <li>
+            <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/spellen" style={{ color: '#fff', textDecoration: 'none' }}>
+              Spellen
+            </Link>
+          </li>
+          <li>
+            <Link to="/about" style={{ color: '#fff', textDecoration: 'none' }}>
+              About
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className="ms-auto mt-2">
+        <ul
+        style={{
+          listStyle: 'none',
+          display: 'flex',
+          gap: '2rem',
+          margin: 0,
+          padding: 0,
+        }}>
+          <li>
+            <Link to="/logout" style={{ color: '#fff', textDecoration: 'none' }}>
+              Logout
+            </Link>
+          </li>
+        </ul>
+      </div>
+      
     </nav>
   );
 };

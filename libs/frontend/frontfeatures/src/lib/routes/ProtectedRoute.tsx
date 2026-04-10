@@ -1,18 +1,24 @@
-import React from 'react'
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { authCheck } from '../auth/auth.check';
+import { useAuthCheck } from '../auth/auth.check';
 
-type Props = { children : React.ReactNode };
+type Props = {
+  children: React.ReactNode;
+};
 
-const ProtectedRoute = ({children}: Props) => {
-    const location= useLocation();
-    //functie authCheck nog schrijven deze moet naar de auth me gaan
-    const { isLoggedIn } = authCheck();
-    return isLoggedIn() ? (
-        <>{children}</> 
-        ) : (
-            <Navigate to="/login" state={{from : location}} replace />
-    );
-}
+const ProtectedRoute = ({ children }: Props) => {
+  const location = useLocation();
+  const { isLoggedIn, loading } = useAuthCheck();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+};
 
 export default ProtectedRoute;

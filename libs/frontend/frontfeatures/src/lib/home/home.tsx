@@ -1,7 +1,15 @@
+import { useState } from 'react';
 import SpelList from '../spel/spel-list/spel-list';
+import CreateSpellijstModal from '../spellijst/createSpellijst/createSpellijst';
 import styles from './home.module.css';
 
 export function Home() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCreated = (newSpellijst: any) => {
+    console.log('Created:', newSpellijst);
+  };
+
   return (
 
     <div className={styles['content']}>
@@ -15,9 +23,22 @@ export function Home() {
         </div>
       </div>
 
+      <button
+        className="btn btn-primary mb-2"
+        onClick={() => setShowModal(true)}
+      >
+        Create Spellijst
+      </button>
+
       <div className="d-flex justify-content-between">
         <SpelList />
       </div>
+
+      <CreateSpellijstModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        onCreated={handleCreated}
+      />
     </div>
 
 

@@ -13,8 +13,7 @@ import { Roles } from './../auth/roles/role.decorator';
 import { RolesGuard } from './../auth/roles/role.guard';
 import { CreateUserDto } from '@org/dto';
 
-@UseGuards(AuthGuard('jwt'), RolesGuard)
-@Roles('admin')
+
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -41,6 +40,8 @@ export class UserController {
     return this.userService.findById(id);
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.userService.delete(id);

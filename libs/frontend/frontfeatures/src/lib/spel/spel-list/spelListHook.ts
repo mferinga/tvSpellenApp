@@ -4,8 +4,8 @@ import { SpelService } from '../../spel.service';
 
 export function useGetAllSpellen() {
   const [spellen, setAllSpellen] = useState<ISpel[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loadingSpellen, setLoading] = useState(true);
+  const [spellenError, setError] = useState<string | null>(null);
 
   useEffect(() => {
     SpelService.getAllSpellen()
@@ -16,5 +16,5 @@ export function useGetAllSpellen() {
       .finally(() => setLoading(false));
   }, []);
 
-  return { spellen, loading, error };
+  return { spellen, loadingSpellen, spellenError };
 }

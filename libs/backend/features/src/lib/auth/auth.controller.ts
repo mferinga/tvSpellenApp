@@ -16,14 +16,21 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() dto: any, @Res({ passthrough: true }) res: Response) {
-    const token = await this.authService.login(dto);
+    const result = await this.authService.login(dto);
 
-    console.log(token);
-    res.cookie('access_token', token, {
+    const accessToken =
+      typeof result === 'string' ? result : result.access_token;
+
+    console.log('accessToken:', accessToken);
+
+    res.cookie('access_token', accessToken, {
       httpOnly: true,
       sameSite: 'lax',
       secure: false,
     });
+
+    console.log('login result:', result);
+    console.log('typeof login result:', typeof result);
 
     return { success: true };
   }

@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { authService } from '../auth.service';
-import { hasRestults } from '../../typeguard/ResponseGuard';
-import { useNavigate, useNavigation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../auth.check';
+
 
 export function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { loginUser } = useAuth();
+
   const [formData, setFormData] = useState({
     email: '',
     wachtwoord: '',
   });
+
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,12 +25,17 @@ export function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response = await authService.login(formData);
-    if(hasRestults(response)){
-      console.log("Ik ben hier");
-      navigate('/spellen');
+    setError('');
+
+    try {
+      await loginUser(formData.email, formData.wachtwoord);
+
+      const from = (location.state as any)?.from?.pathname || '/';
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error(err);
+      setError('Login mislukt');
     }
-    
   };
 
   return (
@@ -60,6 +70,8 @@ export function Login() {
                 required
               />
             </div>
+
+            {error && <div className="alert alert-danger">{error}</div>}
 
             <button type="submit" className="btn btn-primary w-100">
               Login

@@ -1,20 +1,22 @@
-import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Spellijst {
-    @Prop({required : true})
-    naam! : string;
+  @Prop({ required: true })
+  naam!: string;
 
-    @Prop({required : true})
-    aangemaaktOp! : Date;
+  @Prop()
+  beschrijving?: string;
 
-    @Prop({
-        type: Types.ObjectId,
-        ref: 'User',
-        required: true
-    })
-    userId!: Types.ObjectId;
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Spel' }], default: [] })
+  spellen!: Types.ObjectId[];
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  spelleider!: Types.ObjectId;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
+  spelers!: Types.ObjectId[];
 }
 
-export const SpelLijstSchema = SchemaFactory.createForClass(Spellijst)
+export const SpellijstSchema = SchemaFactory.createForClass(Spellijst);

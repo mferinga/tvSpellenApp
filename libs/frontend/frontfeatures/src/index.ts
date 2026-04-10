@@ -1,3 +1,4 @@
+export * from './lib/spellijst/createSpellijst/createSpellijst';
 export * from './lib/auth/register/register';
 export * from './lib/auth/login/login';
 export * from './lib/about/about';
