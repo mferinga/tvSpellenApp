@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import SpelList from '../spel/spel-list/spel-list';
 import CreateSpellijstModal from '../spellijst/createSpellijst/createSpellijst';
+import SpellijstList from '../spellijst/spellijst-list/spellijst-list';
 import styles from './home.module.css';
 
 export function Home() {
@@ -11,28 +11,39 @@ export function Home() {
   };
 
   return (
+    <div className={styles['container']}>
+      <section className={styles['hero']}>
+        <div className={styles['heroContent']}>
+          <span className={styles['heroBadge']}>TV Spellen</span>
+          <h1 className={styles['title']}>TV Spellen Applicatie</h1>
+          <p className={styles['subtitle']}>
+            Beheer spellijsten, bekijk spellen en stel eenvoudig een nieuwe
+            spellijst samen voor jouw spelavond.
+          </p>
 
-    <div className={styles['content']}>
-      <div className="row mb-3">
-        <div className='d-flex justify-content-center'>
-          <div className={styles['titleBar']}>
-            <h4>
-              TV Spellen Applicatie
-            </h4>
+          <div className={styles['heroActions']}>
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowModal(true)}
+            >
+              Nieuwe spellijst maken
+            </button>
           </div>
         </div>
-      </div>
+      </section>
 
-      <button
-        className="btn btn-primary mb-2"
-        onClick={() => setShowModal(true)}
-      >
-        Create Spellijst
-      </button>
+      <section className={styles['section']}>
+        <div className={styles['sectionHeader']}>
+          <div>
+            <h2 className={styles['sectionTitle']}>Recente spellijsten</h2>
+            <p className={styles['sectionSubtitle']}>
+              Open een spellijst om de spellen en betrokken spelers te bekijken.
+            </p>
+          </div>
+        </div>
 
-      <div className="d-flex justify-content-between">
-        <SpelList />
-      </div>
+        <SpellijstList />
+      </section>
 
       <CreateSpellijstModal
         show={showModal}
@@ -40,8 +51,6 @@ export function Home() {
         onCreated={handleCreated}
       />
     </div>
-
-
   );
 }
 

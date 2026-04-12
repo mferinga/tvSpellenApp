@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Body,
   Param,
   UsePipes,
@@ -45,5 +46,22 @@ export class SpelController {
   @UsePipes(new ValidationPipe())
   createSpel(@Body() createSpelDto: CreateSpelDTO) {
     return this.spelService.createSpel(createSpelDto);
+  }
+
+  @Put(':id')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Roles('admin', 'spelleider')
+  @UsePipes(new ValidationPipe())
+  async updateSpel(
+    @Param('id') id: string,
+    @Body() updateSpelDto: CreateSpelDTO
+  ) {
+    const updatedSpel = await this.spelService.updateSpel(id, updateSpelDto);
+
+    if (!updatedSpel) {
+      throw new HttpException('Spel is niet gevonden', 404);
+    }
+
+    return updatedSpel;
   }
 }

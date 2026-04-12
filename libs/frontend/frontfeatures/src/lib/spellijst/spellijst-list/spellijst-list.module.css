@@ -24,23 +24,23 @@
   max-width: 700px;
 }
 
-.spelGrid {
+.spellijstGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.25rem;
 }
 
-.spelCardLink {
+.spellijstCardLink {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-.spelCardLink:hover {
+.spellijstCardLink:hover {
   color: inherit;
 }
 
-.spelCard {
+.spellijstCard {
   border: 1px solid #e9ecef;
   border-radius: 0.9rem;
   transition:
@@ -49,7 +49,7 @@
     border-color 0.18s ease;
 }
 
-.spelCardLink:hover .spelCard {
+.spellijstCardLink:hover .spellijstCard {
   transform: translateY(-3px);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   border-color: #d0d7de;
@@ -63,6 +63,29 @@
   color: #495057;
   margin-bottom: 0;
   line-height: 1.5;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.metaBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.875rem;
+  border-radius: 999px;
+  background: #f1f3f5;
+  color: #343a40;
+}
+
+.spelleiderText {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.95rem;
 }
 
 .fakeButton {

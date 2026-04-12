@@ -3,12 +3,12 @@ export interface ISpel {
   naam: string;
   beschrijving: string;
   uitleg: string;
-  originleNaam?: string;
+  orgineleNaam?: string;
   teams?: boolean;
-  teamgrootte?: number;
+  teamGrootte?: number;
 }
 
 export type ICreateSpel = Pick<
   ISpel,
-  'naam' | 'beschrijving' | 'uitleg' | 'originleNaam' | 'teams' | 'teamgrootte'
+  'naam' | 'beschrijving' | 'uitleg' | 'orgineleNaam' | 'teams' | 'teamGrootte'
 >;

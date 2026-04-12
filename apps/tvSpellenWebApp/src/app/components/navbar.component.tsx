@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../../../libs/frontend/frontfeatures/src/lib/auth/auth.check';
 
 interface NavBarProps {
   title?: string;
@@ -8,22 +9,36 @@ interface NavBarProps {
 export const NavBarComponent: React.FC<NavBarProps> = ({
   title = 'TV Spellen Avond',
 }) => {
-  return (
+  const navigate = useNavigate();
+  const { logout, isLoggedIn } = useAuth();
 
-    <nav className='d-flex flex-row justify-content-between w-100' style={{ backgroundColor: '#333', padding: '1rem' }}>
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  return (
+    <nav
+      className="d-flex flex-row justify-content-between w-100"
+      style={{ backgroundColor: '#333', padding: '1rem' }}
+    >
       <div style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 'bold' }}>
         {title}
       </div>
 
       <div className="d-flex flex-row ms-2 mt-2">
-        <ul 
-        style={{
-          listStyle: 'none',
-          display: 'flex',
-          gap: '2rem',
-          margin: 0,
-          padding: 0,
-        }}
+        <ul
+          style={{
+            listStyle: 'none',
+            display: 'flex',
+            gap: '2rem',
+            margin: 0,
+            padding: 0,
+          }}
         >
           <li>
             <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
@@ -31,7 +46,18 @@ export const NavBarComponent: React.FC<NavBarProps> = ({
             </Link>
           </li>
           <li>
-            <Link to="/spellen" style={{ color: '#fff', textDecoration: 'none' }}>
+            <Link
+              to="/spellijsten"
+              style={{ color: '#fff', textDecoration: 'none' }}
+            >
+              Spellijsten
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/spellen"
+              style={{ color: '#fff', textDecoration: 'none' }}
+            >
               Spellen
             </Link>
           </li>
@@ -42,23 +68,37 @@ export const NavBarComponent: React.FC<NavBarProps> = ({
           </li>
         </ul>
       </div>
+
       <div className="ms-auto mt-2">
         <ul
-        style={{
-          listStyle: 'none',
-          display: 'flex',
-          gap: '2rem',
-          margin: 0,
-          padding: 0,
-        }}>
-          <li>
-            <Link to="/logout" style={{ color: '#fff', textDecoration: 'none' }}>
-              Logout
-            </Link>
-          </li>
+          style={{
+            listStyle: 'none',
+            display: 'flex',
+            gap: '2rem',
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          {isLoggedIn() && (
+            <li>
+              <button
+                type="button"
+                onClick={handleLogout}
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          )}
         </ul>
       </div>
-      
     </nav>
   );
 };

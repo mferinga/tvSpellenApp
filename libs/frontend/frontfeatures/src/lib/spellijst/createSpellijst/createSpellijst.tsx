@@ -2,11 +2,12 @@ import {
   useState,
   ChangeEvent,
   FormEvent,
+  useEffect,
 } from 'react';
 import { ISpel, IUser } from '@org/data-api';
 import { useGetAllSpellen } from '../../spel/spel-list/spelListHook';
-import { useGetAllUsers } from '../../user/userHook'; 
-
+import { useGetAllUsers } from '../../user/userHook';
+import { useAuth } from '../../auth/auth.check';
 
 type Spellijst = {
   id?: string;
@@ -14,6 +15,7 @@ type Spellijst = {
   beschrijving: string;
   spelIds?: string[];
   spelerIds: string[];
+  spelleider: string;
 };
 
 type CreateSpellijstModalProps = {
@@ -28,18 +30,29 @@ export default function CreateSpellijstModal({
   onCreated,
 }: CreateSpellijstModalProps) {
   const { spellen, loadingSpellen, spellenError } = useGetAllSpellen();
-
   const { users, loading: loadingUsers, error: usersError } = useGetAllUsers();
+  const { user: loggedInUser } = useAuth(); // verwacht ingelogde gebruiker
+  const loggedInUserId = loggedInUser?._id ? String(loggedInUser._id) : '';
 
   const [formData, setFormData] = useState<Spellijst>({
     naam: '',
     beschrijving: '',
     spelIds: [],
     spelerIds: [],
+    spelleider: '',
   });
 
+  useEffect(() => {
+    if (loggedInUserId) {
+      setFormData((prev) => ({
+        ...prev,
+        spelleider: prev.spelleider || loggedInUserId,
+      }));
+    }
+  }, [loggedInUserId]);
+
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
@@ -49,10 +62,7 @@ export default function CreateSpellijstModal({
     }));
   };
 
-  const toggleSelection = (
-    id: string,
-    field: 'spelIds' | 'spelerIds'
-  ) => {
+  const toggleSelection = (id: string, field: 'spelIds' | 'spelerIds') => {
     setFormData((prev) => ({
       ...prev,
       [field]: prev[field].includes(id)
@@ -80,6 +90,7 @@ export default function CreateSpellijstModal({
       beschrijving: '',
       spelIds: [],
       spelerIds: [],
+      spelleider: loggedInUserId,
     });
   };
 
@@ -87,17 +98,14 @@ export default function CreateSpellijstModal({
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        'http://localhost:3333/api/spellijsten',
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch('http://localhost:3333/api/spellijsten', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok) {
         throw new Error('Failed to create spellijst');
@@ -117,21 +125,13 @@ export default function CreateSpellijstModal({
 
   return (
     <>
-      <div
-        className="modal fade show"
-        style={{ display: 'block' }}
-        tabIndex={-1}
-      >
+      <div className="modal fade show" style={{ display: 'block' }} tabIndex={-1}>
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <form onSubmit={handleSubmit}>
               <div className="modal-header">
                 <h5 className="modal-title">Nieuwe Spellijst</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={onClose}
-                />
+                <button type="button" className="btn-close" onClick={onClose} />
               </div>
 
               <div className="modal-body">
@@ -158,53 +158,55 @@ export default function CreateSpellijstModal({
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">
-                    Selecteer spellen
-                  </label>
+                  <label className="form-label">Spelleider</label>
+
+                  {loadingUsers && <p>Spelers laden...</p>}
+
+                  {!loadingUsers && !usersError && (
+                    <select
+                      className="form-select"
+                      name="spelleider"
+                      value={formData.spelleider}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Kies een spelleider</option>
+                      {users.map((user: IUser) => (
+                        <option key={String(user._id)} value={String(user._id)}>
+                          {user.naam}
+                          {loggedInUserId === String(user._id) ? ' (jij)' : ''}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Selecteer spellen</label>
 
                   {loadingSpellen && <p>Spellen laden...</p>}
-
                   {spellenError && (
-                    <p className="text-danger">
-                      Fout bij laden van spellen: {spellenError}
-                    </p>
+                    <p className="text-danger">Fout bij laden van spellen: {spellenError}</p>
                   )}
 
                   {!loadingSpellen && !spellenError && (
                     <div
                       className="border rounded p-3"
-                      style={{
-                        maxHeight: '250px',
-                        overflowY: 'auto',
-                      }}
+                      style={{ maxHeight: '250px', overflowY: 'auto' }}
                     >
                       {spellen.length === 0 ? (
-                        <p className="mb-0">
-                          Geen spellen beschikbaar
-                        </p>
+                        <p className="mb-0">Geen spellen beschikbaar</p>
                       ) : (
                         spellen.map((spel: ISpel) => (
-                          <div
-                            className="form-check"
-                            key={spel._id}
-                          >
+                          <div className="form-check" key={spel._id}>
                             <input
                               className="form-check-input"
                               type="checkbox"
                               id={`spel-${spel._id}`}
-                              checked={
-                                formData.spelIds?.includes(spel._id) ??
-                                false
-                              }
-                              onChange={() =>
-                                handleSpelToggle(spel._id)
-                              }
+                              checked={formData.spelIds?.includes(spel._id) ?? false}
+                              onChange={() => handleSpelToggle(spel._id)}
                             />
-
-                            <label
-                              className="form-check-label"
-                              htmlFor={`spel-${spel._id}`}
-                            >
+                            <label className="form-check-label" htmlFor={`spel-${spel._id}`}>
                               {spel.naam}
                             </label>
                           </div>
@@ -218,9 +220,7 @@ export default function CreateSpellijstModal({
                   <label className="form-label">Selecteer spelers</label>
 
                   {loadingUsers && <p>Spelers laden...</p>}
-                  {usersError && (
-                    <p className="text-danger">{usersError}</p>
-                  )}
+                  {usersError && <p className="text-danger">{usersError}</p>}
 
                   {!loadingUsers && !usersError && (
                     <div className="border rounded p-3">
@@ -231,14 +231,9 @@ export default function CreateSpellijstModal({
                             type="checkbox"
                             id={`user-${user._id}`}
                             checked={formData.spelerIds.includes(user._id)}
-                            onChange={() =>
-                              toggleSelection(user._id, 'spelerIds')
-                            }
+                            onChange={() => toggleSelection(user._id, 'spelerIds')}
                           />
-                          <label
-                            className="form-check-label"
-                            htmlFor={`user-${user._id}`}
-                          >
+                          <label className="form-check-label" htmlFor={`user-${user._id}`}>
                             {user.naam}
                           </label>
                         </div>
@@ -249,18 +244,10 @@ export default function CreateSpellijstModal({
               </div>
 
               <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={onClose}
-                >
+                <button type="button" className="btn btn-secondary" onClick={onClose}>
                   Close
                 </button>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                   Save
                 </button>
               </div>
@@ -269,10 +256,7 @@ export default function CreateSpellijstModal({
         </div>
       </div>
 
-      <div
-        className="modal-backdrop fade show"
-        onClick={onClose}
-      />
+      <div className="modal-backdrop fade show" onClick={onClose} />
     </>
   );
 }

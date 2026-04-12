@@ -1,7 +1,117 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.heroActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6c757d;
+  max-width: 750px;
+  line-height: 1.6;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.mainCard,
+.infoCard {
+  border: 1px solid #e9ecef;
+  border-radius: 0.9rem;
+}
+
+.sectionTitle {
+  margin: 0 0 1rem 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.description {
+  margin: 0;
+  color: #495057;
+  line-height: 1.7;
+}
+
+.sideColumn {
+  display: grid;
+  gap: 1rem;
+}
+
+.infoLabel {
+  margin-bottom: 0.4rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.infoValue {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.idValue {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #495057;
+  word-break: break-all;
+}
+
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.65rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+}

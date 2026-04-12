@@ -18,7 +18,7 @@ export class Spel {
     teams? : boolean;
     
     @Prop()
-    teamgrote? : number;
+    teamGrootte? : number;
 }
 
 export const SpelSchema = SchemaFactory.createForClass(Spel)

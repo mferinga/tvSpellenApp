@@ -11,11 +11,17 @@ type UserContextType = {
   isLoggedIn: () => boolean;
 };
 
-export const UserContext = createContext<UserContextType>(
-  {} as UserContextType
-);
+export const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const useAuth = () => useContext(UserContext);
+export const useAuth = (): UserContextType => {
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error('useAuth must be used within a UserContext.Provider');
+  }
+
+  return context;
+};
 
 export const useAuthCheck = () => {
   const { token, loading } = useAuth();

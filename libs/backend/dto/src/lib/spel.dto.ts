@@ -21,12 +21,12 @@ export class CreateSpelDTO implements ICreateSpel {
 
   @IsString()
   @IsOptional()
-  originleNaam?: string;
+  orgineleNaam?: string;
 
   @IsBoolean()
   @IsOptional()
   teams?: boolean;
   @IsNumber()
   @IsOptional()
-  teamgrootte?: number;
+  teamGrootte?: number;
 }

@@ -1,0 +1,149 @@
+.container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6c757d;
+  max-width: 750px;
+  line-height: 1.6;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summaryCard {
+  border: 1px solid #e9ecef;
+  border-radius: 0.9rem;
+}
+
+.summaryLabel {
+  margin-bottom: 0.4rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.summaryValue {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.userGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.userCard {
+  border: 1px solid #e9ecef;
+  border-radius: 0.9rem;
+}
+
+.userCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.spelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.spelCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.spelCardLink:hover {
+  color: inherit;
+}
+
+.spelCard {
+  border: 1px solid #e9ecef;
+  border-radius: 0.9rem;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.spelCardLink:hover .spelCard {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  border-color: #d0d7de;
+}
+
+.spelDescription {
+  color: #495057;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.fakeButton {
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.65rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+}

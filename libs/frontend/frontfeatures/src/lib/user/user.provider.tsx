@@ -22,12 +22,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
       const data = await res.json();
 
-      // supports both:
-      // return req.user
-      // return { user: req.user }
-      const currentUser = data?.user ?? data ?? null;
+      const rawUser = data?.user ?? data?.results ?? data ?? null;
 
-      setUser(currentUser);
+      const normalizedUser = rawUser
+        ? {
+            ...rawUser,
+            _id: rawUser._id ?? rawUser.id ?? rawUser.userId ?? '',
+          }
+        : null;
+
+      setUser(normalizedUser);
       setToken('authenticated');
     } catch (error) {
       console.error('Auth check failed:', error);
