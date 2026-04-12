@@ -22,9 +22,6 @@
   "references": [
     {
       "path": "../dto/tsconfig.lib.json"
-    },
-    {
-      "path": "../../shared/data-api/tsconfig.lib.json"
     }
   ]
 }

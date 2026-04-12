@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
 
+type IPresentator = {
+  _id: string;
+  naam: string;
+  geboortedatum?: string;
+  bio?: string;
+};
+
 type ISpel = {
   _id: string;
   naam: string;
   beschrijving: string;
   uitleg: string;
-  orgineleNaam?: string;
+  originleNaam?: string;
   teams?: boolean;
-  teamGrootte?: number;
+  teamgrootte?: number;
+  presentators?: IPresentator[];
 };
 
 export function useGetSpelDetail(id: string) {
@@ -27,8 +35,6 @@ export function useGetSpelDetail(id: string) {
         }
 
         const data = await response.json();
-        console.log('spel detail data:', data);
-
         const rawSpel = data?.results ?? data ?? null;
 
         const normalizedSpel = rawSpel
@@ -38,9 +44,10 @@ export function useGetSpelDetail(id: string) {
               naam: rawSpel.naam ?? '',
               beschrijving: rawSpel.beschrijving ?? '',
               uitleg: rawSpel.uitleg ?? '',
-              orgineleNaam: rawSpel.orgineleNaam ?? '',
+              originleNaam: rawSpel.originleNaam ?? '',
               teams: rawSpel.teams ?? false,
-              teamGrootte: rawSpel.teamGrootte ?? undefined,
+              teamgrootte: rawSpel.teamgrootte ?? undefined,
+              presentators: rawSpel.presentators ?? [],
             }
           : null;
 

@@ -2,6 +2,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './spellijst-detail.module.css';
 import { useGetSpellijstDetail } from './spellijst-detail.hook';
+import { useGetSpellijstRecommendations } from '../spellijst-recommendation.hook';
 import AddSpelModal from '../../spel/add-spel-modal/add-spel-modal';
 
 export function SpellijstDetail() {
@@ -19,6 +20,12 @@ export function SpellijstDetail() {
   }
 
   const { spellijst, loading, error } = useGetSpellijstDetail(id);
+  const {
+    recommendations,
+    loading: loadingRecommendations,
+    error: recommendationsError,
+  } = useGetSpellijstRecommendations(id, 6);
+
   const backTarget = location.state?.from || '/spellijsten';
 
   const refreshPage = () => {
@@ -200,7 +207,7 @@ export function SpellijstDetail() {
                     className={styles['spelCardLink']}
                   >
                     <h4 className="card-title">{spel.naam}</h4>
-                    <p className={`card-text ${styles['spelDescription']}`}>
+                    <p className={styles['spelDescription']}>
                       {spel.beschrijving || 'Geen beschrijving beschikbaar.'}
                     </p>
                   </Link>
@@ -234,6 +241,70 @@ export function SpellijstDetail() {
         ) : (
           <div className="alert alert-light border mb-0">
             Geen spellen in deze spellijst.
+          </div>
+        )}
+      </section>
+
+      <section className={styles['section']}>
+        <div className={styles['sectionHeader']}>
+          <h2 className={styles['sectionTitle']}>Aanbevolen spellen</h2>
+        </div>
+
+        {loadingRecommendations ? (
+          <p>Recommendations laden...</p>
+        ) : recommendationsError ? (
+          <div className="alert alert-light border mb-0">
+            {recommendationsError}
+          </div>
+        ) : recommendations.length > 0 ? (
+          <div className={styles['recommendationGrid']}>
+            {recommendations.map((spel) => (
+              <Link
+                key={spel.mongoId}
+                to={`/spellen/${spel.mongoId}`}
+                state={{ from: location }}
+                className={styles['recommendationCardLink']}
+              >
+                <article className={`card shadow-sm h-100 ${styles['recommendationCard']}`}>
+                  <div className="card-body d-flex flex-column">
+                    <div className={styles['recommendationTop']}>
+                      <h4 className="card-title mb-2">{spel.naam}</h4>
+
+                      <div className={styles['metaRow']}>
+                        <span className={styles['metaBadge']}>
+                          overlap: {spel.overlapCount}
+                        </span>
+                        <span className={styles['metaBadge']}>
+                          support: {spel.supportCount}
+                        </span>
+                        <span className={styles['metaBadge']}>
+                          score: {spel.score}
+                        </span>
+                        <span className={styles['metaBadge']}>
+                          teams: {spel.teams ? 'ja' : 'nee'}
+                        </span>
+                        {spel.teamgrootte !== undefined &&
+                          spel.teamgrootte !== null && (
+                            <span className={styles['metaBadge']}>
+                              teamgrootte: {spel.teamgrootte}
+                            </span>
+                          )}
+                      </div>
+                    </div>
+
+                    <div className="mt-auto pt-3">
+                      <span className={`btn btn-outline-success btn-sm ${styles['fakeButton']}`}>
+                        Bekijk aanbevolen spel
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="alert alert-light border mb-0">
+            Nog geen aanbevelingen gevonden voor deze spellijst.
           </div>
         )}
       </section>

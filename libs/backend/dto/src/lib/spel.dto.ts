@@ -4,6 +4,8 @@ import {
   IsBoolean,
   IsOptional,
   IsNumber,
+  IsArray,
+  IsMongoId,
 } from 'class-validator';
 import { ICreateSpel } from '@org/data-api';
 
@@ -29,4 +31,9 @@ export class CreateSpelDTO implements ICreateSpel {
   @IsNumber()
   @IsOptional()
   teamGrootte?: number;
+
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
+  presentators?: string[];
 }

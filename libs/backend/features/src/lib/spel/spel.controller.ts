@@ -15,6 +15,8 @@ import { CreateSpelDTO } from '@org/dto';
 import { Roles } from '../auth/roles/role.decorator';
 import { RolesGuard } from '../auth/roles/role.guard';
 import { JwtGuard } from '../auth/roles/jwt.guard';
+import { AddPresentatorsToSpelDTO } from '../../../../dto/src/lib/add-presentators-to-spel.dto';
+import { CreatePresentatorDTO } from '../../../../dto/src/lib/create-presentator.dto';
 
 @Controller('spel')
 export class SpelController {
@@ -63,5 +65,27 @@ export class SpelController {
     }
 
     return updatedSpel;
+  }
+
+  @Post(':id/presentators')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Roles('admin', 'spelleider')
+  @UsePipes(new ValidationPipe())
+  addExistingPresentators(
+    @Param('id') id: string,
+    @Body() dto: AddPresentatorsToSpelDTO
+  ) {
+    return this.spelService.addExistingPresentators(id, dto.presentatorIds);
+  }
+
+  @Post(':id/presentators/create')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Roles('admin', 'spelleider')
+  @UsePipes(new ValidationPipe())
+  createPresentatorAndAdd(
+    @Param('id') id: string,
+    @Body() dto: CreatePresentatorDTO
+  ) {
+    return this.spelService.createPresentatorAndAddToSpel(id, dto);
   }
 }

@@ -3,11 +3,13 @@ import { useState } from 'react';
 import styles from './spel-detail.module.css';
 import { useGetSpelDetail } from './spel-detail.hook';
 import EditSpelModal from '../edit-spel-modal/edit-spel-modal';
+import AddPresentatorModal from '../../presentator/add-presentator-modal';
 
 export function SpelDetail() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAddPresentatorModal, setShowAddPresentatorModal] = useState(false);
 
   if (!id) {
     return (
@@ -48,6 +50,10 @@ export function SpelDetail() {
     );
   }
 
+  const existingPresentatorIds = (spel.presentators ?? []).map((p) =>
+    String(p._id)
+  );
+
   return (
     <div className={styles['container']}>
       <div className={styles['hero']}>
@@ -62,6 +68,14 @@ export function SpelDetail() {
         </div>
 
         <div className={styles['heroActions']}>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={() => setShowAddPresentatorModal(true)}
+          >
+            Presentator toevoegen
+          </button>
+
           <button
             type="button"
             className="btn btn-primary"
@@ -84,6 +98,44 @@ export function SpelDetail() {
             <p className={styles['description']}>
               {spel.uitleg || 'Geen uitleg beschikbaar.'}
             </p>
+
+            <div className="d-flex justify-content-between align-items-center mt-4 mb-3">
+              <h2 className={styles['sectionTitle']} style={{ marginBottom: 0 }}>
+                Presentatoren
+              </h2>
+            </div>
+
+            {spel.presentators && spel.presentators.length > 0 ? (
+              <div className={styles['presentatorGrid']}>
+                {spel.presentators.map((presentator) => (
+                  <div
+                    key={String(presentator._id)}
+                    className={`card shadow-sm ${styles['presentatorCard']}`}
+                  >
+                    <div className="card-body">
+                      <h5 className="card-title mb-2">{presentator.naam}</h5>
+
+                      {presentator.geboortedatum && (
+                        <p className="text-muted mb-2">
+                          <strong>Geboortedatum:</strong>{' '}
+                          {new Date(
+                            presentator.geboortedatum
+                          ).toLocaleDateString('nl-NL')}
+                        </p>
+                      )}
+
+                      {presentator.bio && (
+                        <p className="card-text mb-0">{presentator.bio}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className={styles['description']}>
+                Geen presentatoren gekoppeld aan dit spel.
+              </p>
+            )}
           </div>
         </section>
 
@@ -99,7 +151,7 @@ export function SpelDetail() {
             <div className="card-body">
               <h6 className={styles['infoLabel']}>Originele naam</h6>
               <p className={styles['infoValue']}>
-                {spel.orgineleNaam || 'Niet ingevuld'}
+                {spel.originleNaam || 'Niet ingevuld'}
               </p>
             </div>
           </div>
@@ -115,7 +167,7 @@ export function SpelDetail() {
             <div className="card-body">
               <h6 className={styles['infoLabel']}>Teamgrootte</h6>
               <p className={styles['infoValue']}>
-                {spel.teamGrootte ?? 'Niet ingevuld'}
+                {spel.teamgrootte ?? 'Niet ingevuld'}
               </p>
             </div>
           </div>
@@ -140,10 +192,18 @@ export function SpelDetail() {
           naam: spel.naam,
           beschrijving: spel.beschrijving,
           uitleg: spel.uitleg,
-          orgineleNaam: spel.orgineleNaam,
+          orgineleNaam: spel.originleNaam,
           teams: spel.teams,
-          teamGrootte: spel.teamGrootte,
+          teamgrootte: spel.teamgrootte,
         }}
+      />
+
+      <AddPresentatorModal
+        show={showAddPresentatorModal}
+        onClose={() => setShowAddPresentatorModal(false)}
+        onSaved={refreshPage}
+        spelId={String(spel._id)}
+        existingPresentatorIds={existingPresentatorIds}
       />
     </div>
   );

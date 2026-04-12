@@ -115,3 +115,15 @@
     font-size: 1.2rem;
   }
 }
+
+.presentatorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.presentatorCard {
+  border: 1px solid #e9ecef;
+  border-radius: 0.9rem;
+}
