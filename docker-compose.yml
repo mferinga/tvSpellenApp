@@ -53,7 +53,10 @@ services:
       - node_modules:/workspace/node_modules
 
   recom-api:
-    image: node:20-bookworm
+    # image: node:20-bookworm
+    build:
+      context: .
+      dockerfile: apps/recom-api/Dockerfile
     container_name: tvspellen-recom-api
     restart: unless-stopped
     working_dir: /workspace
@@ -66,20 +69,22 @@ services:
       NEO4J_USERNAME: neo4j
       NEO4J_PASSWORD: password
       NEO4J_DATABASE: neo4j
-    command:
-      [
-        'sh',
-        '-lc',
-        'npm install && npm exec nx -- serve @org/recom-api'
-      ]
+    # command:
+    #   [
+    #     'sh',
+    #     '-lc',
+    #     'npm install && npm exec nx -- serve @org/recom-api'
+    #   ]
     ports:
       - '3001:3001'
     volumes:
-      - .:/workspace
       - node_modules:/workspace/node_modules
 
   tvspellen-web:
-    image: node:20-bookworm
+    # image: node:20-bookworm
+    build:
+      context: .
+      dockerfile: apps/tvSpellenWebApp/Dockerfile
     container_name: tvspellen-web
     restart: unless-stopped
     working_dir: /workspace
@@ -88,16 +93,16 @@ services:
         condition: service_started
       recom-api:
         condition: service_started
-    command:
-      [
-        'sh',
-        '-lc',
-        'npm install && npm exec nx -- serve @org/tvSpellenWebApp --host 0.0.0.0'
-      ]
+    # command:
+    #   [
+    #     'sh',
+    #     '-lc',
+    #     'npm install && npm exec nx -- serve @org/tvSpellenWebApp --host 0.0.0.0'
+    #   ]
     ports:
       - '4200:4200'
     volumes:
-      - .:/workspace
+      # - .:/workspace
       - node_modules:/workspace/node_modules
 
 volumes:
