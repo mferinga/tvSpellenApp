@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { SPELDATA_API_BASE_URL } from '../../api-config';
 
 type SpelFormData = {
   naam: string;
@@ -79,7 +80,7 @@ export default function EditSpelModal({
     setSaving(true);
 
     try {
-      const response = await fetch(`http://localhost:3333/api/spel/${spelId}`, {
+      const response = await fetch(`${SPELDATA_API_BASE_URL}/spel/${spelId}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {

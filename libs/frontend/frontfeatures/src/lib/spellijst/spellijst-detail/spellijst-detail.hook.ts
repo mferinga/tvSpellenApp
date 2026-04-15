@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SPELDATA_API_BASE_URL } from '../../api-config';
 
 type ISpel = {
   _id: string;
@@ -32,7 +33,7 @@ export function useGetSpellijstDetail(id: string) {
         setLoading(true);
 
         const response = await fetch(
-          `http://localhost:3333/api/spellijsten/${id}`,
+          `${SPELDATA_API_BASE_URL}/spellijsten/${id}`,
           {
             credentials: 'include',
           }

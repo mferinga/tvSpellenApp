@@ -1,11 +1,10 @@
 import { Post } from "@nestjs/common";
-
-const API_BASE_URL = 'http://localhost:3333/api';
+import { SPELDATA_API_BASE_URL } from '../api-config';
 
 export class authService{
 
     static async login(formData: {email:string, wachtwoord:string}) {
-        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        const response = await fetch(`${SPELDATA_API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

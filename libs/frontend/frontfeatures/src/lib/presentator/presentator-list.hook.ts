@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SPELDATA_API_BASE_URL } from '../api-config';
 
 export type IPresentator = {
   _id: string;
@@ -15,7 +16,7 @@ export function useGetAllPresentators() {
   useEffect(() => {
     const fetchPresentators = async () => {
       try {
-        const response = await fetch('http://localhost:3333/api/presentator', {
+        const response = await fetch(`${SPELDATA_API_BASE_URL}/presentator`, {
           credentials: 'include',
         });
 

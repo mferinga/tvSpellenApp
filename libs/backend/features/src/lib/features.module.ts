@@ -9,7 +9,7 @@ import { SpellijstModule } from './spellijst/spellijst.module';
   controllers: [],
   providers: [],
   exports: [],
-  imports: [MongooseModule.forRoot('mongodb://127.0.0.1/TvSpellenApp'), 
+  imports: [MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://127.0.0.1/TvSpellenApp'),
     UserModule,
     SpelModule,
     AuthModule,

@@ -8,6 +8,7 @@ import { ISpel, IUser } from '@org/data-api';
 import { useGetAllSpellen } from '../../spel/spel-list/spelListHook';
 import { useGetAllUsers } from '../../user/userHook';
 import { useAuth } from '../../auth/auth.check';
+import { SPELDATA_API_BASE_URL } from '../../api-config';
 
 type Spellijst = {
   id?: string;
@@ -98,7 +99,7 @@ export default function CreateSpellijstModal({
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3333/api/spellijsten', {
+      const response = await fetch(`${SPELDATA_API_BASE_URL}/spellijsten`, {
         method: 'POST',
         credentials: 'include',
         headers: {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { RECOM_API_BASE_URL } from '../api-config';
 
 type RecommendedSpel = {
   mongoId: string;
@@ -25,7 +26,7 @@ export function useGetSpellijstRecommendations(
         setError('');
 
         const response = await fetch(
-          `http://localhost:3001/api/recommendations/spellijsten/${spellijstId}?limit=${limit}`
+          `${RECOM_API_BASE_URL}/recommendations/spellijsten/${spellijstId}?limit=${limit}`
         );
 
         if (!response.ok) {

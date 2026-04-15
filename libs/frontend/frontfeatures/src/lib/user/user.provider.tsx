@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '@org/features';
 import { UserContext } from '../auth/auth.check';
+import { SPELDATA_API_BASE_URL } from '../api-config';
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -9,7 +10,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const checkLogin = async () => {
     try {
-      const res = await fetch('http://localhost:3333/api/auth/me', {
+      const res = await fetch(`${SPELDATA_API_BASE_URL}/auth/me`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -51,7 +52,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const loginUser = async (email: string, password: string) => {
-    const res = await fetch('http://localhost:3333/api/auth/login', {
+    const res = await fetch(`${SPELDATA_API_BASE_URL}/auth/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -71,7 +72,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const registerUser = async (email: string, username: string, password: string) => {
-    const res = await fetch('http://localhost:3333/api/auth/register', {
+    const res = await fetch(`${SPELDATA_API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:3333/api/auth/logout', {
+      await fetch(`${SPELDATA_API_BASE_URL}/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });

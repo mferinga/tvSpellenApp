@@ -4,6 +4,7 @@ import styles from './spellijst-detail.module.css';
 import { useGetSpellijstDetail } from './spellijst-detail.hook';
 import { useGetSpellijstRecommendations } from '../spellijst-recommendation.hook';
 import AddSpelModal from '../../spel/add-spel-modal/add-spel-modal';
+import { SPELDATA_API_BASE_URL } from '../../api-config';
 
 export function SpellijstDetail() {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +44,7 @@ export function SpellijstDetail() {
       setRemovingSpelId(spelId);
 
       const response = await fetch(
-        `http://localhost:3333/api/spellijsten/${id}/spellen/${spelId}`,
+        `${SPELDATA_API_BASE_URL}/spellijsten/${id}/spellen/${spelId}`,
         {
           method: 'DELETE',
           credentials: 'include',

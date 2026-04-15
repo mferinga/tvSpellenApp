@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { useGetAllPresentators } from './presentator-list.hook';
+import { SPELDATA_API_BASE_URL } from '../api-config';
 
 type AddPresentatorModalProps = {
   show: boolean;
@@ -75,7 +76,7 @@ export default function AddPresentatorModal({
 
   const addExistingToSpel = async () => {
     const response = await fetch(
-      `http://localhost:3333/api/spel/${spelId}/presentators`,
+      `${SPELDATA_API_BASE_URL}/spel/${spelId}/presentators`,
       {
         method: 'POST',
         credentials: 'include',
@@ -95,7 +96,7 @@ export default function AddPresentatorModal({
 
   const createAndAddToSpel = async () => {
     const response = await fetch(
-      `http://localhost:3333/api/spel/${spelId}/presentators/create`,
+      `${SPELDATA_API_BASE_URL}/spel/${spelId}/presentators/create`,
       {
         method: 'POST',
         credentials: 'include',

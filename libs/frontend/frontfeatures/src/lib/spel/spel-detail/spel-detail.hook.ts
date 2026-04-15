@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SPELDATA_API_BASE_URL } from '../../api-config';
 
 type IPresentator = {
   _id: string;
@@ -26,7 +27,7 @@ export function useGetSpelDetail(id: string) {
   useEffect(() => {
     const fetchSpel = async () => {
       try {
-        const response = await fetch(`http://localhost:3333/api/spel/${id}`, {
+        const response = await fetch(`${SPELDATA_API_BASE_URL}/spel/${id}`, {
           credentials: 'include',
         });
 

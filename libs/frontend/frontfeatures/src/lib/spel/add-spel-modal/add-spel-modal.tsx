@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { useGetAllSpellen } from '../spel-list/spelListHook';
+import { SPELDATA_API_BASE_URL } from '../../api-config';
 
 type AddSpelModalProps = {
   show: boolean;
@@ -88,7 +89,7 @@ export default function AddSpelModal({
     }
 
     const response = await fetch(
-      `http://localhost:3333/api/spellijsten/${spellijstId}/spellen`,
+      `${SPELDATA_API_BASE_URL}/spellijsten/${spellijstId}/spellen`,
       {
         method: 'POST',
         credentials: 'include',
@@ -107,7 +108,7 @@ export default function AddSpelModal({
   };
 
   const createStandaloneSpel = async () => {
-    const response = await fetch('http://localhost:3333/api/spel', {
+    const response = await fetch(`${SPELDATA_API_BASE_URL}/spel`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -132,7 +133,7 @@ export default function AddSpelModal({
     if (!spellijstId) return;
 
     const response = await fetch(
-      `http://localhost:3333/api/spellijsten/${spellijstId}/spellen/create`,
+      `${SPELDATA_API_BASE_URL}/spellijsten/${spellijstId}/spellen/create`,
       {
         method: 'POST',
         credentials: 'include',

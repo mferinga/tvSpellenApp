@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IUser } from '@org/data-api';
+import { SPELDATA_API_BASE_URL } from '../api-config';
 
 export function useGetAllUsers() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -9,7 +10,7 @@ export function useGetAllUsers() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('http://localhost:3333/api/users', {
+        const res = await fetch(`${SPELDATA_API_BASE_URL}/users`, {
           credentials: 'include',
         });
 
